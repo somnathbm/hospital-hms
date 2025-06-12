@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package opd;
 
-option go_package = "github.com/yourusername/hospital-hms/gen;opdpb";
+option go_package = "github.com/somnathbm/hospital-hms/microservices/opd-service/gen;opdpb";
 
 service OPDService {
   rpc CheckAppointment(CheckAppointmentRequest) returns (CheckAppointmentResponse);

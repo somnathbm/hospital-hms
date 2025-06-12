@@ -1,4 +1,4 @@
-module opd
+module github.com/somnathbm/hospital-hms/microservices/opd-service
 
 go 1.23.4
 

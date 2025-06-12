@@ -669,7 +669,7 @@ const file_opd_proto_rawDesc = "" +
 	"\x0fRecordDiagnosis\x12\x1b.opd.RecordDiagnosisRequest\x1a\x1c.opd.RecordDiagnosisResponse\x12I\n" +
 	"\x0ePrescribeTests\x12\x1a.opd.PrescribeTestsRequest\x1a\x1b.opd.PrescribeTestsResponse\x12[\n" +
 	"\x14GeneratePrescription\x12 .opd.GeneratePrescriptionRequest\x1a!.opd.GeneratePrescriptionResponse\x127\n" +
-	"\bEndVisit\x12\x14.opd.EndVisitRequest\x1a\x15.opd.EndVisitResponseB0Z.github.com/yourusername/hospital-hms/gen;opdpbb\x06proto3"
+	"\bEndVisit\x12\x14.opd.EndVisitRequest\x1a\x15.opd.EndVisitResponseBGZEgithub.com/somnathbm/hospital-hms/microservices/opd-service/gen;opdpbb\x06proto3"
 
 var (
 	file_opd_proto_rawDescOnce sync.Once
