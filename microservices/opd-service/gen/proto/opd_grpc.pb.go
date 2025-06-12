@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v5.29.2
-// source: opd.proto
+// source: proto/opd.proto
 
 package opdpb
 
@@ -307,5 +307,5 @@ var OPDService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "opd.proto",
+	Metadata: "proto/opd.proto",
 }

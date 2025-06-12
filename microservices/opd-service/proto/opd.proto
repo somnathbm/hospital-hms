@@ -4,13 +4,44 @@ package opd;
 
 option go_package = "github.com/somnathbm/hospital-hms/microservices/opd-service/gen;opdpb";
 
+import "google/api/annotations.proto";
+
 service OPDService {
-  rpc CheckAppointment(CheckAppointmentRequest) returns (CheckAppointmentResponse);
-  rpc StartConsultation(StartConsultationRequest) returns (StartConsultationResponse);
-  rpc RecordDiagnosis(RecordDiagnosisRequest) returns (RecordDiagnosisResponse);
-  rpc PrescribeTests(PrescribeTestsRequest) returns (PrescribeTestsResponse);
-  rpc GeneratePrescription(GeneratePrescriptionRequest) returns (GeneratePrescriptionResponse);
-  rpc EndVisit(EndVisitRequest) returns (EndVisitResponse);
+  rpc CheckAppointment(CheckAppointmentRequest) returns (CheckAppointmentResponse) {
+    option (google.api.http) = {
+      get: "/v1/opd/appointment/{appointment_id}/status"
+    };
+  }
+  rpc StartConsultation(StartConsultationRequest) returns (StartConsultationResponse) {
+    option (google.api.http) = {
+      post: "/v1/opd/consultation/start",
+      body: "*"
+    };
+  };
+  rpc RecordDiagnosis(RecordDiagnosisRequest) returns (RecordDiagnosisResponse) {
+    option (google.api.http) = {
+      post: "/v1/opd/diagnosis/record",
+      body: "*"
+    };
+  };
+  rpc PrescribeTests(PrescribeTestsRequest) returns (PrescribeTestsResponse) {
+    option (google.api.http) = {
+      post: "/v1/opd/tests",
+      body: "*"
+    };
+  };
+  rpc GeneratePrescription(GeneratePrescriptionRequest) returns (GeneratePrescriptionResponse) {
+    option (google.api.http) = {
+      post: "/v1/opd/prescriptions",
+      body: "*"
+    };
+  };
+  rpc EndVisit(EndVisitRequest) returns (EndVisitResponse) {
+    option (google.api.http) = {
+      post: "/v1/opd/visit/end",
+      body: "*"
+    };
+  }
 }
 
 message CheckAppointmentRequest {

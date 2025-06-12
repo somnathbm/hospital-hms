@@ -2,11 +2,12 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v5.29.2
-// source: opd.proto
+// source: proto/opd.proto
 
 package opdpb
 
 import (
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -31,7 +32,7 @@ type CheckAppointmentRequest struct {
 
 func (x *CheckAppointmentRequest) Reset() {
 	*x = CheckAppointmentRequest{}
-	mi := &file_opd_proto_msgTypes[0]
+	mi := &file_proto_opd_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -43,7 +44,7 @@ func (x *CheckAppointmentRequest) String() string {
 func (*CheckAppointmentRequest) ProtoMessage() {}
 
 func (x *CheckAppointmentRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[0]
+	mi := &file_proto_opd_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -56,7 +57,7 @@ func (x *CheckAppointmentRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckAppointmentRequest.ProtoReflect.Descriptor instead.
 func (*CheckAppointmentRequest) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{0}
+	return file_proto_opd_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *CheckAppointmentRequest) GetPatientId() string {
@@ -83,7 +84,7 @@ type CheckAppointmentResponse struct {
 
 func (x *CheckAppointmentResponse) Reset() {
 	*x = CheckAppointmentResponse{}
-	mi := &file_opd_proto_msgTypes[1]
+	mi := &file_proto_opd_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -95,7 +96,7 @@ func (x *CheckAppointmentResponse) String() string {
 func (*CheckAppointmentResponse) ProtoMessage() {}
 
 func (x *CheckAppointmentResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[1]
+	mi := &file_proto_opd_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -108,7 +109,7 @@ func (x *CheckAppointmentResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckAppointmentResponse.ProtoReflect.Descriptor instead.
 func (*CheckAppointmentResponse) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{1}
+	return file_proto_opd_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *CheckAppointmentResponse) GetValid() bool {
@@ -136,7 +137,7 @@ type StartConsultationRequest struct {
 
 func (x *StartConsultationRequest) Reset() {
 	*x = StartConsultationRequest{}
-	mi := &file_opd_proto_msgTypes[2]
+	mi := &file_proto_opd_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -148,7 +149,7 @@ func (x *StartConsultationRequest) String() string {
 func (*StartConsultationRequest) ProtoMessage() {}
 
 func (x *StartConsultationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[2]
+	mi := &file_proto_opd_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -161,7 +162,7 @@ func (x *StartConsultationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StartConsultationRequest.ProtoReflect.Descriptor instead.
 func (*StartConsultationRequest) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{2}
+	return file_proto_opd_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *StartConsultationRequest) GetPatientId() string {
@@ -195,7 +196,7 @@ type StartConsultationResponse struct {
 
 func (x *StartConsultationResponse) Reset() {
 	*x = StartConsultationResponse{}
-	mi := &file_opd_proto_msgTypes[3]
+	mi := &file_proto_opd_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -207,7 +208,7 @@ func (x *StartConsultationResponse) String() string {
 func (*StartConsultationResponse) ProtoMessage() {}
 
 func (x *StartConsultationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[3]
+	mi := &file_proto_opd_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -220,7 +221,7 @@ func (x *StartConsultationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StartConsultationResponse.ProtoReflect.Descriptor instead.
 func (*StartConsultationResponse) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{3}
+	return file_proto_opd_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *StartConsultationResponse) GetVisitId() string {
@@ -247,7 +248,7 @@ type RecordDiagnosisRequest struct {
 
 func (x *RecordDiagnosisRequest) Reset() {
 	*x = RecordDiagnosisRequest{}
-	mi := &file_opd_proto_msgTypes[4]
+	mi := &file_proto_opd_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -259,7 +260,7 @@ func (x *RecordDiagnosisRequest) String() string {
 func (*RecordDiagnosisRequest) ProtoMessage() {}
 
 func (x *RecordDiagnosisRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[4]
+	mi := &file_proto_opd_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -272,7 +273,7 @@ func (x *RecordDiagnosisRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RecordDiagnosisRequest.ProtoReflect.Descriptor instead.
 func (*RecordDiagnosisRequest) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{4}
+	return file_proto_opd_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *RecordDiagnosisRequest) GetVisitId() string {
@@ -298,7 +299,7 @@ type RecordDiagnosisResponse struct {
 
 func (x *RecordDiagnosisResponse) Reset() {
 	*x = RecordDiagnosisResponse{}
-	mi := &file_opd_proto_msgTypes[5]
+	mi := &file_proto_opd_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -310,7 +311,7 @@ func (x *RecordDiagnosisResponse) String() string {
 func (*RecordDiagnosisResponse) ProtoMessage() {}
 
 func (x *RecordDiagnosisResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[5]
+	mi := &file_proto_opd_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -323,7 +324,7 @@ func (x *RecordDiagnosisResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RecordDiagnosisResponse.ProtoReflect.Descriptor instead.
 func (*RecordDiagnosisResponse) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{5}
+	return file_proto_opd_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *RecordDiagnosisResponse) GetMessage() string {
@@ -343,7 +344,7 @@ type PrescribeTestsRequest struct {
 
 func (x *PrescribeTestsRequest) Reset() {
 	*x = PrescribeTestsRequest{}
-	mi := &file_opd_proto_msgTypes[6]
+	mi := &file_proto_opd_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -355,7 +356,7 @@ func (x *PrescribeTestsRequest) String() string {
 func (*PrescribeTestsRequest) ProtoMessage() {}
 
 func (x *PrescribeTestsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[6]
+	mi := &file_proto_opd_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -368,7 +369,7 @@ func (x *PrescribeTestsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PrescribeTestsRequest.ProtoReflect.Descriptor instead.
 func (*PrescribeTestsRequest) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{6}
+	return file_proto_opd_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *PrescribeTestsRequest) GetVisitId() string {
@@ -394,7 +395,7 @@ type PrescribeTestsResponse struct {
 
 func (x *PrescribeTestsResponse) Reset() {
 	*x = PrescribeTestsResponse{}
-	mi := &file_opd_proto_msgTypes[7]
+	mi := &file_proto_opd_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -406,7 +407,7 @@ func (x *PrescribeTestsResponse) String() string {
 func (*PrescribeTestsResponse) ProtoMessage() {}
 
 func (x *PrescribeTestsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[7]
+	mi := &file_proto_opd_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -419,7 +420,7 @@ func (x *PrescribeTestsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PrescribeTestsResponse.ProtoReflect.Descriptor instead.
 func (*PrescribeTestsResponse) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{7}
+	return file_proto_opd_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *PrescribeTestsResponse) GetMessage() string {
@@ -439,7 +440,7 @@ type GeneratePrescriptionRequest struct {
 
 func (x *GeneratePrescriptionRequest) Reset() {
 	*x = GeneratePrescriptionRequest{}
-	mi := &file_opd_proto_msgTypes[8]
+	mi := &file_proto_opd_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -451,7 +452,7 @@ func (x *GeneratePrescriptionRequest) String() string {
 func (*GeneratePrescriptionRequest) ProtoMessage() {}
 
 func (x *GeneratePrescriptionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[8]
+	mi := &file_proto_opd_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -464,7 +465,7 @@ func (x *GeneratePrescriptionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GeneratePrescriptionRequest.ProtoReflect.Descriptor instead.
 func (*GeneratePrescriptionRequest) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{8}
+	return file_proto_opd_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GeneratePrescriptionRequest) GetVisitId() string {
@@ -491,7 +492,7 @@ type GeneratePrescriptionResponse struct {
 
 func (x *GeneratePrescriptionResponse) Reset() {
 	*x = GeneratePrescriptionResponse{}
-	mi := &file_opd_proto_msgTypes[9]
+	mi := &file_proto_opd_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -503,7 +504,7 @@ func (x *GeneratePrescriptionResponse) String() string {
 func (*GeneratePrescriptionResponse) ProtoMessage() {}
 
 func (x *GeneratePrescriptionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[9]
+	mi := &file_proto_opd_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -516,7 +517,7 @@ func (x *GeneratePrescriptionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GeneratePrescriptionResponse.ProtoReflect.Descriptor instead.
 func (*GeneratePrescriptionResponse) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{9}
+	return file_proto_opd_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GeneratePrescriptionResponse) GetPrescriptionId() string {
@@ -542,7 +543,7 @@ type EndVisitRequest struct {
 
 func (x *EndVisitRequest) Reset() {
 	*x = EndVisitRequest{}
-	mi := &file_opd_proto_msgTypes[10]
+	mi := &file_proto_opd_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -554,7 +555,7 @@ func (x *EndVisitRequest) String() string {
 func (*EndVisitRequest) ProtoMessage() {}
 
 func (x *EndVisitRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[10]
+	mi := &file_proto_opd_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -567,7 +568,7 @@ func (x *EndVisitRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EndVisitRequest.ProtoReflect.Descriptor instead.
 func (*EndVisitRequest) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{10}
+	return file_proto_opd_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *EndVisitRequest) GetVisitId() string {
@@ -586,7 +587,7 @@ type EndVisitResponse struct {
 
 func (x *EndVisitResponse) Reset() {
 	*x = EndVisitResponse{}
-	mi := &file_opd_proto_msgTypes[11]
+	mi := &file_proto_opd_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -598,7 +599,7 @@ func (x *EndVisitResponse) String() string {
 func (*EndVisitResponse) ProtoMessage() {}
 
 func (x *EndVisitResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_opd_proto_msgTypes[11]
+	mi := &file_proto_opd_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -611,7 +612,7 @@ func (x *EndVisitResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EndVisitResponse.ProtoReflect.Descriptor instead.
 func (*EndVisitResponse) Descriptor() ([]byte, []int) {
-	return file_opd_proto_rawDescGZIP(), []int{11}
+	return file_proto_opd_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *EndVisitResponse) GetMessage() string {
@@ -621,11 +622,11 @@ func (x *EndVisitResponse) GetMessage() string {
 	return ""
 }
 
-var File_opd_proto protoreflect.FileDescriptor
+var File_proto_opd_proto protoreflect.FileDescriptor
 
-const file_opd_proto_rawDesc = "" +
+const file_proto_opd_proto_rawDesc = "" +
 	"\n" +
-	"\topd.proto\x12\x03opd\"_\n" +
+	"\x0fproto/opd.proto\x12\x03opd\x1a\x1cgoogle/api/annotations.proto\"_\n" +
 	"\x17CheckAppointmentRequest\x12\x1d\n" +
 	"\n" +
 	"patient_id\x18\x01 \x01(\tR\tpatientId\x12%\n" +
@@ -661,30 +662,30 @@ const file_opd_proto_rawDesc = "" +
 	"\x0fEndVisitRequest\x12\x19\n" +
 	"\bvisit_id\x18\x01 \x01(\tR\avisitId\",\n" +
 	"\x10EndVisitResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2\xe0\x03\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage2\xbc\x05\n" +
 	"\n" +
-	"OPDService\x12O\n" +
-	"\x10CheckAppointment\x12\x1c.opd.CheckAppointmentRequest\x1a\x1d.opd.CheckAppointmentResponse\x12R\n" +
-	"\x11StartConsultation\x12\x1d.opd.StartConsultationRequest\x1a\x1e.opd.StartConsultationResponse\x12L\n" +
-	"\x0fRecordDiagnosis\x12\x1b.opd.RecordDiagnosisRequest\x1a\x1c.opd.RecordDiagnosisResponse\x12I\n" +
-	"\x0ePrescribeTests\x12\x1a.opd.PrescribeTestsRequest\x1a\x1b.opd.PrescribeTestsResponse\x12[\n" +
-	"\x14GeneratePrescription\x12 .opd.GeneratePrescriptionRequest\x1a!.opd.GeneratePrescriptionResponse\x127\n" +
-	"\bEndVisit\x12\x14.opd.EndVisitRequest\x1a\x15.opd.EndVisitResponseBGZEgithub.com/somnathbm/hospital-hms/microservices/opd-service/gen;opdpbb\x06proto3"
+	"OPDService\x12\x84\x01\n" +
+	"\x10CheckAppointment\x12\x1c.opd.CheckAppointmentRequest\x1a\x1d.opd.CheckAppointmentResponse\"3\x82\xd3\xe4\x93\x02-\x12+/v1/opd/appointment/{appointment_id}/status\x12y\n" +
+	"\x11StartConsultation\x12\x1d.opd.StartConsultationRequest\x1a\x1e.opd.StartConsultationResponse\"%\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/v1/opd/consultation/start\x12q\n" +
+	"\x0fRecordDiagnosis\x12\x1b.opd.RecordDiagnosisRequest\x1a\x1c.opd.RecordDiagnosisResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/v1/opd/diagnosis/record\x12c\n" +
+	"\x0ePrescribeTests\x12\x1a.opd.PrescribeTestsRequest\x1a\x1b.opd.PrescribeTestsResponse\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/v1/opd/tests\x12}\n" +
+	"\x14GeneratePrescription\x12 .opd.GeneratePrescriptionRequest\x1a!.opd.GeneratePrescriptionResponse\" \x82\xd3\xe4\x93\x02\x1a:\x01*\"\x15/v1/opd/prescriptions\x12U\n" +
+	"\bEndVisit\x12\x14.opd.EndVisitRequest\x1a\x15.opd.EndVisitResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/opd/visit/endBGZEgithub.com/somnathbm/hospital-hms/microservices/opd-service/gen;opdpbb\x06proto3"
 
 var (
-	file_opd_proto_rawDescOnce sync.Once
-	file_opd_proto_rawDescData []byte
+	file_proto_opd_proto_rawDescOnce sync.Once
+	file_proto_opd_proto_rawDescData []byte
 )
 
-func file_opd_proto_rawDescGZIP() []byte {
-	file_opd_proto_rawDescOnce.Do(func() {
-		file_opd_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_opd_proto_rawDesc), len(file_opd_proto_rawDesc)))
+func file_proto_opd_proto_rawDescGZIP() []byte {
+	file_proto_opd_proto_rawDescOnce.Do(func() {
+		file_proto_opd_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_proto_opd_proto_rawDesc), len(file_proto_opd_proto_rawDesc)))
 	})
-	return file_opd_proto_rawDescData
+	return file_proto_opd_proto_rawDescData
 }
 
-var file_opd_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
-var file_opd_proto_goTypes = []any{
+var file_proto_opd_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_proto_opd_proto_goTypes = []any{
 	(*CheckAppointmentRequest)(nil),      // 0: opd.CheckAppointmentRequest
 	(*CheckAppointmentResponse)(nil),     // 1: opd.CheckAppointmentResponse
 	(*StartConsultationRequest)(nil),     // 2: opd.StartConsultationRequest
@@ -698,7 +699,7 @@ var file_opd_proto_goTypes = []any{
 	(*EndVisitRequest)(nil),              // 10: opd.EndVisitRequest
 	(*EndVisitResponse)(nil),             // 11: opd.EndVisitResponse
 }
-var file_opd_proto_depIdxs = []int32{
+var file_proto_opd_proto_depIdxs = []int32{
 	0,  // 0: opd.OPDService.CheckAppointment:input_type -> opd.CheckAppointmentRequest
 	2,  // 1: opd.OPDService.StartConsultation:input_type -> opd.StartConsultationRequest
 	4,  // 2: opd.OPDService.RecordDiagnosis:input_type -> opd.RecordDiagnosisRequest
@@ -718,26 +719,26 @@ var file_opd_proto_depIdxs = []int32{
 	0,  // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_opd_proto_init() }
-func file_opd_proto_init() {
-	if File_opd_proto != nil {
+func init() { file_proto_opd_proto_init() }
+func file_proto_opd_proto_init() {
+	if File_proto_opd_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_opd_proto_rawDesc), len(file_opd_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_opd_proto_rawDesc), len(file_proto_opd_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_opd_proto_goTypes,
-		DependencyIndexes: file_opd_proto_depIdxs,
-		MessageInfos:      file_opd_proto_msgTypes,
+		GoTypes:           file_proto_opd_proto_goTypes,
+		DependencyIndexes: file_proto_opd_proto_depIdxs,
+		MessageInfos:      file_proto_opd_proto_msgTypes,
 	}.Build()
-	File_opd_proto = out.File
-	file_opd_proto_goTypes = nil
-	file_opd_proto_depIdxs = nil
+	File_proto_opd_proto = out.File
+	file_proto_opd_proto_goTypes = nil
+	file_proto_opd_proto_depIdxs = nil
 }
