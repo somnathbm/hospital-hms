@@ -25,6 +25,7 @@ func NewOPDService() OPDService {
 		visits: make(map[string]*Visit),
 		appointment: map[string]bool{
 			"apt-123": true,
+			"apt-456": true,
 		},
 	}
 }
@@ -43,6 +44,10 @@ func (s *opdService) CheckAppointment(patientID, appointmentID string) (bool, st
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
+	return s.checkAppointmentUnsafe(patientID, appointmentID)
+}
+
+func (s *opdService) checkAppointmentUnsafe(patientID, appointmentID string) (bool, string) {
 	valid, exists := s.appointment[appointmentID]
 	if exists && valid {
 		return true, "Appointment is valid"
@@ -54,7 +59,7 @@ func (s *opdService) StartConsultation(patientID, doctorID, appointmentID string
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
-	if valid, _ := s.CheckAppointment(patientID, appointmentID); !valid {
+	if valid, _ := s.checkAppointmentUnsafe(patientID, appointmentID); !valid {
 		return "", "Cannot start consultation: Invalid appointment"
 	}
 
