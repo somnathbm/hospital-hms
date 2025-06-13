@@ -5,6 +5,7 @@ import (
 	"net"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 
 	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen"
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/server"
@@ -26,6 +27,7 @@ func main() {
 
 	// Register the gRPC server
 	pb.RegisterOPDServiceServer(grpcServer, server.NewOPDGRPCServer(opdService))
+	reflection.Register(grpcServer)
 
 	log.Println("✅ OPD gRPC server listening on :50051")
 	if err := grpcServer.Serve(lis); err != nil {
