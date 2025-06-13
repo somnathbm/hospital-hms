@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 
-	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen/proto" // Replace with your actual module path
+	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen" // Replace with your actual module path
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/service"
 )
 
