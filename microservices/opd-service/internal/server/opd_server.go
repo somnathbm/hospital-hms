@@ -16,7 +16,7 @@ func NewOPDGRPCServer(svc service.OPDService) *OPDGRPCServer {
 	return &OPDGRPCServer{svc: svc}
 }
 
-func (s *OPDGRPCServer) CheckAppointmentStatus(ctx context.Context, req *pb.CheckAppointmentRequest) (*pb.CheckAppointmentResponse, error) {
+func (s *OPDGRPCServer) CheckAppointment(ctx context.Context, req *pb.CheckAppointmentRequest) (*pb.CheckAppointmentResponse, error) {
 	valid, msg := s.svc.CheckAppointment(req.PatientId, req.AppointmentId)
 	return &pb.CheckAppointmentResponse{
 		Valid:   valid,
