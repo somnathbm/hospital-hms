@@ -36,7 +36,7 @@ RUN chown -R opduser:opduser /app
 USER opduser
 
 # Expose gRPC and HTTP port
-EXPOSE 50051, 8080
+EXPOSE 50051
 
 # Run the binary
 ENTRYPOINT ["./opd-service"]
