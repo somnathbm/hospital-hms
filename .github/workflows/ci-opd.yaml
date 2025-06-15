@@ -1,0 +1,36 @@
+name: CI for OPD Service
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'microservices/opd-service/**'
+      - '.github/workflows/ci-opd.yaml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: microservices/opd-service
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+
+      - name: Lint
+        run: go fmt ./internal/service/
+
+      - name: Unit Tests
+        run: go test ./internal/service
+
+      - name: Build & Push Docker image
+        run: |
+          docker build -t somnathbm/hospital-hms-opd-service:${{ github.sha }} .
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          docker push somnathbm/hospital-hms-opd-service:${{ github.sha }}
