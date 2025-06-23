@@ -3,6 +3,7 @@ module github.com/somnathbm/hospital-hms/microservices/opd-service
 go 1.23.4
 
 require (
+	github.com/go-chi/chi v1.5.5
 	github.com/stretchr/testify v1.10.0
 	google.golang.org/grpc v1.73.0
 	google.golang.org/protobuf v1.36.6

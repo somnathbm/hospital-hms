@@ -3,34 +3,49 @@ package main
 import (
 	"log"
 	"net"
+	"net/http"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
+	"github.com/go-chi/chi"
 	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen"
+	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/rest"
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/server"
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/service"
 )
 
 func main() {
-	// Create a TCP listener on port 50051
-	lis, err := net.Listen("tcp", ":50051")
-	if err != nil {
-		log.Fatalf("Failed to listen on port 50051: %v", err)
-	}
+	grpcPort := ":50051"
+	restPort := ":8080"
 
-	// Initialize the business logic
-	opdService := service.NewOPDService()
+	// Business logic
+	opdSvc := service.NewOPDService()
 
-	// Initialize gRPC server
+	// gRPC setup
 	grpcServer := grpc.NewServer()
-
-	// Register the gRPC server
-	pb.RegisterOPDServiceServer(grpcServer, server.NewOPDGRPCServer(opdService))
+	pb.RegisterOPDServiceServer(grpcServer, server.NewOPDGRPCServer(opdSvc))
 	reflection.Register(grpcServer)
 
-	log.Println("✅ OPD gRPC server listening on :50051")
-	if err := grpcServer.Serve(lis); err != nil {
-		log.Fatalf("Failed to serve: %v", err)
+	lis, err := net.Listen("tcp", grpcPort)
+	if err != nil {
+		log.Fatalf("Failed to listen: %v", err)
+	}
+
+	go func() {
+		log.Printf("✅ OPD gRPC server listening on %s", grpcPort)
+		if err := grpcServer.Serve(lis); err != nil {
+			log.Fatalf("Failed to serve: %v", err)
+		}
+	}()
+
+	// REST setup
+	restHandler := rest.NewHandler(opdSvc)
+	r := chi.NewRouter()
+	r.Mount("/opd", restHandler.Routes())
+
+	log.Printf("✅ OPD REST server listening on %s", restPort)
+	if err := http.ListenAndServe(restPort, r); err != nil {
+		log.Fatalf("Failed to start REST server: %v", err)
 	}
 }
