@@ -9,7 +9,8 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	"github.com/go-chi/chi"
-	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen"
+	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen/proto"
+	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/client"
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/rest"
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/server"
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/service"
@@ -19,8 +20,12 @@ func main() {
 	grpcPort := ":50051"
 	restPort := ":8080"
 
-	// Business logic
-	opdSvc := service.NewOPDService()
+	// Create gRPC clients for Appointment & Billing services
+	appointmentClient := client.NewAppointmentClient("appointment-service:50052")
+	billingClient := client.NewBillingClient("billing-service:50052")
+
+	// Create OPD service with these clients
+	opdSvc := service.NewOPDService(appointmentClient, billingClient)
 
 	// gRPC setup
 	grpcServer := grpc.NewServer()

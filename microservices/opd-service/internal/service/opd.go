@@ -3,6 +3,9 @@ package service
 import (
 	"fmt"
 	"sync"
+
+	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/client"
+	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/model"
 )
 
 type OPDService interface {
@@ -16,55 +19,34 @@ type OPDService interface {
 
 type opdService struct {
 	mu          sync.Mutex
-	visits      map[string]*Visit
-	appointment map[string]bool
+	visits      map[string]*model.Visit
+	appointment *client.AppointmentClient
+	billing     *client.BillingClient
 }
 
-func NewOPDService() OPDService {
+func NewOPDService(appointment *client.AppointmentClient, billing *client.BillingClient) OPDService {
 	return &opdService{
-		visits: make(map[string]*Visit),
-		appointment: map[string]bool{
-			"apt-123": true,
-			"apt-456": true,
-		},
+		visits: make(map[string]*model.Visit),
+		appointment: appointment,
+		billing: billing,
 	}
-}
-
-type Visit struct {
-	VisitID      string
-	PatientID    string
-	DoctorID     string
-	Diagnosis    string
-	Tests        []string
-	Prescription []string
-	IsComplete   bool
 }
 
 func (s *opdService) CheckAppointment(patientID, appointmentID string) (bool, string) {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-
-	return s.checkAppointmentUnsafe(patientID, appointmentID)
-}
-
-func (s *opdService) checkAppointmentUnsafe(patientID, appointmentID string) (bool, string) {
-	valid, exists := s.appointment[appointmentID]
-	if exists && valid {
-		return true, "Appointment is valid"
-	}
-	return false, "Appointment not found or invalid"
+	// Use the Appointment gRPC client
+	return s.appointment.CheckAppointment(patientID, appointmentID)
 }
 
 func (s *opdService) StartConsultation(patientID, doctorID, appointmentID string) (string, string) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
-	if valid, _ := s.checkAppointmentUnsafe(patientID, appointmentID); !valid {
+	if valid, _ := s.appointment.CheckAppointment(patientID, appointmentID); !valid {
 		return "", "Cannot start consultation: Invalid appointment"
 	}
 
 	visitID := fmt.Sprintf("visit-%d", len(s.visits)+1)
-	s.visits[visitID] = &Visit{
+	s.visits[visitID] = &model.Visit{
 		VisitID:   visitID,
 		PatientID: patientID,
 		DoctorID:  doctorID,
@@ -107,13 +89,16 @@ func (s *opdService) GeneratePrescription(visitID string, meds []string) (string
 	return "", "Visit not found"
 }
 
-func (s *opdService) EndVisit(visitID string) string {
+func (s *opdService) EndVisit(patientID, visitID string) (string, string) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
-	if visit, ok := s.visits[visitID]; ok {
-		visit.IsComplete = true
-		return "Visit completed"
+	if visit, ok := s.visits[visitID]; ok != nil {
+		return "", "Visit not found"
 	}
-	return "Visit not found"
+
+	// create fixed amount for demo purpose
+	billID, msg := s.billing.CreateBill(patientID, visitID, 5000.0)
+	visit.IsComplete = true
+	return billID, msg
 }
