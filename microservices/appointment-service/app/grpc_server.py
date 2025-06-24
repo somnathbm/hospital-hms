@@ -18,11 +18,11 @@ class AppointmentServiceServicer(appointment_pb2_grpc.AppointmentServiceServicer
         return appointment_pb2.BookAppointmentResponse(appointment_id=appt_id, msg=msg)
     
     
-    def serve_grpc(core, grpc_port="50052"):
-        server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-        appointment_pb2_grpc.add_AppointmentServiceServicer_to_server(
-            AppointmentServiceServicer(core), server)
-        server.add_insecure_port(f"[::]:{grpc_port}")
-        server.start()
-        print(f"✅ gRPC server listening on {grpc_port}")
-        server.wait_for_termination()
+def serve_grpc(core, grpc_port="50052"):
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    appointment_pb2_grpc.add_AppointmentServiceServicer_to_server(
+        AppointmentServiceServicer(core), server)
+    server.add_insecure_port(f"[::]:{grpc_port}")
+    server.start()
+    print(f"✅ gRPC server listening on {grpc_port}")
+    server.wait_for_termination()
