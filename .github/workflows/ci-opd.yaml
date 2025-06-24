@@ -32,10 +32,11 @@ jobs:
 
       - name: Build & Push Docker image
         run: |
+          IMAGE_REPO_NAME=somnathbm/hospital-hms-opd-service
           IMAGE_TAG=sha-${{ github.sha }}
-          docker build -t somnathbm/hospital-hms-opd-service:$IMAGE_TAG .
+          docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker push somnathbm/hospital-hms-opd-service:$IMAGE_TAG
+          docker push $IMAGE_REPO_NAME:$IMAGE_TAG
 
   update_infra_repo:
     runs-on: ubuntu-latest
