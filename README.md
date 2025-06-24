@@ -1,5 +1,10 @@
 # 🏥 hospital-hms
 
+## 🧭 Infrastructure repo
+[hospital-hms-infra](https://github.com/somnathbm/hospital-hms-infra.git)
+
+---
+
 A **production-like, cloud-native Hospital Management System (HMS)** that simulates the digital operations of a modern hospital. Built using microservices architecture, GitOps with ArgoCD, Kubernetes (EKS), and backed by complete CI/CD, observability, and gRPC-based service communication.
 
 > Designed to showcase real-world **DevOps**, **SRE**, and **Platform Engineering** skills.
