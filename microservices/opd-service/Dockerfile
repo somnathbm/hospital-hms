@@ -18,7 +18,7 @@ COPY . .
 RUN go build -o opd-service ./cmd/server
 
 # --- Run stage ---
-FROM alpine:latest
+FROM alpine:latest AS server
 
 # Create a non-root user for safety
 RUN useradd -D -g '' opduser
