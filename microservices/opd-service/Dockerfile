@@ -38,5 +38,5 @@ USER opduser
 # Expose gRPC and HTTP port
 EXPOSE 50051 8080
 
-# Run the binary
+# Run the app
 ENTRYPOINT ["./opd-service"]
