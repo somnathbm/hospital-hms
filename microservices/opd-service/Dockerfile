@@ -21,7 +21,7 @@ RUN go build -o opd-service ./cmd/server
 FROM alpine:latest AS app
 
 # Create a non-root user for safety
-RUN useradd -D -g '' opduser
+RUN addgroup -S opduser && adduser -S opduser -G opduser
 
 # Setup working directory
 WORKDIR /app
