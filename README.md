@@ -1,3 +1,5 @@
+[![CI for OPD Service](https://github.com/somnathbm/hospital-hms/actions/workflows/ci-opd.yaml/badge.svg)](https://github.com/somnathbm/hospital-hms/actions/workflows/ci-opd.yaml)
+
 # 🏥 hospital-hms
 
 ## 🧭 Infrastructure repo

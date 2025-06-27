@@ -59,7 +59,7 @@ jobs:
 
           # checkout new branch and commit to it
           git checkout -b update-opd-${{ github.sha }}
-          git add .
+          git add opd-values.yaml
           git commit -m "chore: update OPD image tag to sha-${{ github.sha }}"
           git push origin update-opd-${{ github.sha }}
 
