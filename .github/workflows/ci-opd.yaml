@@ -67,6 +67,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GH_PAT }}
+          base: main
           commit-message: "chore: update OPD image tag"
           title: "chore: update OPD image tag to sha-${{ github.sha }}"
           body: "This PR updates the OPD service image tag so that ArgoCD can pickup the new version"
