@@ -39,6 +39,7 @@ jobs:
 
   update_infra_repo:
     runs-on: ubuntu-latest
+    needs: [test]
     steps:
       - name: Checkout infra repo
         uses: actions/checkout@v4
