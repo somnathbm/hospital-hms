@@ -50,8 +50,8 @@ jobs:
 
       - name: Update image tag
         run: |
-          cd overlays/dev/opd-service
-          sed -i "s/tag: .*/tag: sha-${{ github.sha }}" values-dev.yaml
+          cd overlays/dev
+          sed -i "s/tag: .*/tag: dev-sha-${{ github.sha }}" opd-values.yaml
 
           # set the user name
           git config user.name "github-actions[bot]"
@@ -59,7 +59,7 @@ jobs:
 
           # checkout new branch and commit to it
           git checkout -b update-opd-${{ github.sha }}
-          git add overlays/dev/opd-service/values-dev.yaml
+          git add overlays/dev/opd-values.yaml
           git commit -m "chore: update OPD image tag to sha-${{ github.sha }}"
           git push origin update-opd-${{ github.sha }}
 

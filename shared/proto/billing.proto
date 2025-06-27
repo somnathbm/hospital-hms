@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package billing;
 
+option go_package = "github.com/somnathbm/hospital-hms/microservices/billing-service/gen;billingpb";
+
 service BillingService {
   rpc CreateBill (CreateBillRequest) returns (CreateBillResponse);
 }

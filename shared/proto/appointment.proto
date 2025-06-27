@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package appointment;
 
+option go_package = "github.com/somnathbm/hospital-hms/microservices/appointment-service/gen;gen";
+
 service AppointmentService {
   rpc CheckAppointment (CheckAppointmentRequest) returns (CheckAppointmentResponse);
   rpc BookAppointment (BookAppointmentRequest) returns (BookAppointmentResponse);

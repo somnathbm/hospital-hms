@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 
-	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen" // Replace with your actual module path
+	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen/opdpb" // Replace with your actual module path
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/service"
 )
 
@@ -51,6 +51,6 @@ func (s *OPDGRPCServer) GeneratePrescription(ctx context.Context, req *pb.Genera
 }
 
 func (s *OPDGRPCServer) EndVisit(ctx context.Context, req *pb.EndVisitRequest) (*pb.EndVisitResponse, error) {
-	msg := s.svc.EndVisit(req.VisitId)
-	return &pb.EndVisitResponse{Message: msg}, nil
+	billId, msg := s.svc.EndVisit(req.PatientId, req.VisitId)
+	return &pb.EndVisitResponse{Message: msg, BillId: billId}, nil
 }

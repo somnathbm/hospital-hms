@@ -535,7 +535,8 @@ func (x *GeneratePrescriptionResponse) GetMessage() string {
 
 type EndVisitRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	VisitId       string                 `protobuf:"bytes,1,opt,name=visit_id,json=visitId,proto3" json:"visit_id,omitempty"`
+	PatientId     string                 `protobuf:"bytes,1,opt,name=patient_id,json=patientId,proto3" json:"patient_id,omitempty"`
+	VisitId       string                 `protobuf:"bytes,2,opt,name=visit_id,json=visitId,proto3" json:"visit_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -570,6 +571,13 @@ func (*EndVisitRequest) Descriptor() ([]byte, []int) {
 	return file_opd_proto_rawDescGZIP(), []int{10}
 }
 
+func (x *EndVisitRequest) GetPatientId() string {
+	if x != nil {
+		return x.PatientId
+	}
+	return ""
+}
+
 func (x *EndVisitRequest) GetVisitId() string {
 	if x != nil {
 		return x.VisitId
@@ -579,7 +587,8 @@ func (x *EndVisitRequest) GetVisitId() string {
 
 type EndVisitResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	BillId        string                 `protobuf:"bytes,1,opt,name=bill_id,json=billId,proto3" json:"bill_id,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -612,6 +621,13 @@ func (x *EndVisitResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use EndVisitResponse.ProtoReflect.Descriptor instead.
 func (*EndVisitResponse) Descriptor() ([]byte, []int) {
 	return file_opd_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *EndVisitResponse) GetBillId() string {
+	if x != nil {
+		return x.BillId
+	}
+	return ""
 }
 
 func (x *EndVisitResponse) GetMessage() string {
@@ -657,11 +673,14 @@ const file_opd_proto_rawDesc = "" +
 	"\tmedicines\x18\x02 \x03(\tR\tmedicines\"a\n" +
 	"\x1cGeneratePrescriptionResponse\x12'\n" +
 	"\x0fprescription_id\x18\x01 \x01(\tR\x0eprescriptionId\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage\",\n" +
-	"\x0fEndVisitRequest\x12\x19\n" +
-	"\bvisit_id\x18\x01 \x01(\tR\avisitId\",\n" +
-	"\x10EndVisitResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2\xe0\x03\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"K\n" +
+	"\x0fEndVisitRequest\x12\x1d\n" +
+	"\n" +
+	"patient_id\x18\x01 \x01(\tR\tpatientId\x12\x19\n" +
+	"\bvisit_id\x18\x02 \x01(\tR\avisitId\"E\n" +
+	"\x10EndVisitResponse\x12\x17\n" +
+	"\abill_id\x18\x01 \x01(\tR\x06billId\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage2\xe0\x03\n" +
 	"\n" +
 	"OPDService\x12O\n" +
 	"\x10CheckAppointment\x12\x1c.opd.CheckAppointmentRequest\x1a\x1d.opd.CheckAppointmentResponse\x12R\n" +

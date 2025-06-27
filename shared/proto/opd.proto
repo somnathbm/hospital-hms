@@ -63,9 +63,11 @@ message GeneratePrescriptionResponse {
 }
 
 message EndVisitRequest {
-  string visit_id = 1;
+  string patient_id = 1;
+  string visit_id = 2;
 }
 
 message EndVisitResponse {
-  string message = 1;
+  string bill_id = 1;
+  string message = 2;
 }

@@ -6,8 +6,27 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+type mockAppointmentClient struct{}
+type mockBillingClient struct {
+	billedVisitIds []string
+}
+
+func (m *mockAppointmentClient) CheckAppointment(patientId, appointmentId string) (bool, string) {
+	if appointmentId == "apt-123" || appointmentId == "apt-456" {
+		return true, "Appointment is valid"
+	}
+	return false, "Invalid appointment"
+}
+
+func (m *mockBillingClient) CreateBill(patientId, visitId string, amount float64) (string, string) {
+	m.billedVisitIds = append(m.billedVisitIds, visitId)
+	return "bill-999", "Bill generated successfully. Visit completed"
+}
+
 func TestOPDService(t *testing.T) {
-	svc := NewOPDService()
+	appointmentClient := &mockAppointmentClient{}
+	billingClient := &mockBillingClient{}
+	svc := NewOPDService(appointmentClient, billingClient)
 
 	t.Run("Check valid appointment", func(t *testing.T) {
 		valid, msg := svc.CheckAppointment("p-001", "apt-123")
@@ -34,21 +53,21 @@ func TestOPDService(t *testing.T) {
 	})
 
 	t.Run("Prescribe tests", func(t *testing.T) {
-		visitID, _ := svc.StartConsultation("p-004", "d-101", "apt-456")
+		visitID, _ := svc.StartConsultation("p-001", "d-101", "apt-123")
 		msg := svc.PrescribeTests(visitID, []string{"CBC", "X-Ray"})
 		assert.Equal(t, "Tests prescribed", msg)
 	})
 
 	t.Run("Generate prescription", func(t *testing.T) {
-		visitID, _ := svc.StartConsultation("p-005", "d-105", "apt-123")
+		visitID, _ := svc.StartConsultation("p-001", "d-101", "apt-123")
 		rxID, msg := svc.GeneratePrescription(visitID, []string{"Paracetamol", "Antibiotic"})
 		assert.Contains(t, rxID, "rx-visit")
 		assert.Equal(t, "Prescription generated", msg)
 	})
 
 	t.Run("End visit", func(t *testing.T) {
-		visitID, _ := svc.StartConsultation("p-006", "d-106", "apt-456")
-		msg := svc.EndVisit(visitID)
-		assert.Equal(t, "Visit completed", msg)
+		visitID, _ := svc.StartConsultation("p-001", "d-101", "apt-123")
+		_, msg := svc.EndVisit("p-001", visitID)
+		assert.Equal(t, "Bill generated successfully. Visit completed", msg)
 	})
 }

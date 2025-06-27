@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	"github.com/go-chi/chi"
-	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen/proto"
+	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen/opdpb"
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/client"
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/rest"
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/server"

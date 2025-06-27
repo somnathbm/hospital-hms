@@ -1,8 +1,8 @@
-PROTO_DIR := app/proto
+SHARED_PROTO_DIR := ../../shared/proto
 GEN_DIR := app/gen
 
 proto:
-	python -m grpc_tools.protoc -I$(PROTO_DIR) \
+	python -m grpc_tools.protoc -I$(SHARED_PROTO_DIR) \
   		--python_out=$(GEN_DIR) \
   		--grpc_python_out=$(GEN_DIR) \
-  		app/proto/appointment.proto
+  		$(SHARED_PROTO_DIR)/appointment.proto
