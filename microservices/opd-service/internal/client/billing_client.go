@@ -5,8 +5,8 @@ import (
 	"log"
 	"time"
 
+	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen/billingpb"
 	"google.golang.org/grpc"
-	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen/billing"
 )
 
 type BillingClient struct {
@@ -22,7 +22,7 @@ func NewBillingClient(address string) *BillingClient {
 	return &BillingClient{client: c}
 }
 
-func (b *BillingClient) CreateBill(patientID, visitID string, amount float32) (string, string) {
+func (b *BillingClient) CreateBill(patientID, visitID string, amount float64) (string, string) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 

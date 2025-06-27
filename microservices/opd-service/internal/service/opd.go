@@ -14,21 +14,21 @@ type OPDService interface {
 	RecordDiagnosis(visitID, diagnosis string) string
 	PrescribeTests(visitID string, tests []string) string
 	GeneratePrescription(visitID string, medicines []string) (string, string)
-	EndVisit(visitID string) string
+	EndVisit(patientID, visitID string) (string, string)
 }
 
 type opdService struct {
 	mu          sync.Mutex
 	visits      map[string]*model.Visit
-	appointment *client.AppointmentClient
-	billing     *client.BillingClient
+	appointment client.Appointment
+	billing     client.Billing
 }
 
-func NewOPDService(appointment *client.AppointmentClient, billing *client.BillingClient) OPDService {
+func NewOPDService(appointment client.Appointment, billing client.Billing) OPDService {
 	return &opdService{
-		visits: make(map[string]*model.Visit),
+		visits:      make(map[string]*model.Visit),
 		appointment: appointment,
-		billing: billing,
+		billing:     billing,
 	}
 }
 
@@ -93,12 +93,12 @@ func (s *opdService) EndVisit(patientID, visitID string) (string, string) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
-	if visit, ok := s.visits[visitID]; ok != nil {
+	if _, ok := s.visits[visitID]; !ok {
 		return "", "Visit not found"
 	}
 
 	// create fixed amount for demo purpose
 	billID, msg := s.billing.CreateBill(patientID, visitID, 5000.0)
-	visit.IsComplete = true
+	// visit.IsComplete = true
 	return billID, msg
 }

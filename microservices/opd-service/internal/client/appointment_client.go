@@ -5,8 +5,8 @@ import (
 	"log"
 	"time"
 
-	"google.grpc.org/grpc"
-	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen/appointment"
+	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen/aptpb"
+	"google.golang.org/grpc"
 )
 
 type AppointmentClient struct {
@@ -27,8 +27,8 @@ func (a *AppointmentClient) CheckAppointment(patientID, appointmentID string) (b
 	defer cancel()
 
 	req := &pb.CheckAppointmentRequest{
-		PatientID: patientID,
-		AppointmentID: appointmentID,
+		PatientId:     patientID,
+		AppointmentId: appointmentID,
 	}
 
 	resp, err := a.client.CheckAppointment(ctx, req)
