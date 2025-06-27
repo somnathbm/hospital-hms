@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package billing;
+
+option go_package = "github.com/somnathbm/hospital-hms/microservices/billing-service/gen;billingpb";
+
+service BillingService {
+  rpc CreateBill (CreateBillRequest) returns (CreateBillResponse);
+}
+
+message CreateBillRequest {
+  string patient_id = 1;
+  string visit_id = 2;
+  double amount = 3;
+}
+
+message CreateBillResponse {
+  string bill_id = 1;
+  string msg = 2;
+}
