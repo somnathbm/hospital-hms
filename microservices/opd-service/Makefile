@@ -13,6 +13,7 @@ all: build
 build:
 	go build -o bin/$(APP_NAME) ./cmd/server
 
+# for opd-svc
 proto-opd:
 	protoc \
 		--proto_path=$(SHARED_PROTO_DIR) \

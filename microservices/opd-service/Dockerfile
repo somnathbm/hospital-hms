@@ -17,11 +17,11 @@ COPY . .
 # Build the binary
 RUN go build -o opd-service ./cmd/server
 
-# --- Run stage ---
-FROM alpine:latest
+# --- Run stage / binary ---
+FROM alpine:latest AS app
 
 # Create a non-root user for safety
-RUN useradd -D -g '' opduser
+RUN addgroup -S opduser && adduser -S opduser -G opduser
 
 # Setup working directory
 WORKDIR /app
@@ -38,5 +38,5 @@ USER opduser
 # Expose gRPC and HTTP port
 EXPOSE 50051 8080
 
-# Run the binary
+# Run the app
 ENTRYPOINT ["./opd-service"]
