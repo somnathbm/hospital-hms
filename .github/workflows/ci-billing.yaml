@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     env:
-      IMAGE_TAG: ${{ needs.test_build.outputs.image_tag }}
+      IMAGE_TAG: ${{ needs.build.outputs.image_tag }}
     steps:
       - name: Checkout infra repo
         uses: actions/checkout@v4
@@ -86,7 +86,7 @@ jobs:
       - name: Create new PR to infra repo
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ github.GH_PAT }}
+          token: ${{ secrets.GH_PAT }}
           base: main
           commit-message: "Updated billing svc image tag"
           title: "Updated billing image tag to ${{ env.IMAGE_TAG }}"
