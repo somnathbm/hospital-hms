@@ -14,7 +14,10 @@ class AppointmentServiceServicer(appointment_pb2_grpc.AppointmentServiceServicer
 
 
     def BookAppointment(self, request, context):
-        appt_id, msg = self.core.book_appointment(request.patient_id, request.doctor_id, request.slot)
+        appt_id, msg = self.core.book_appointment(
+            request.patient_id, 
+            request.doctor_id, 
+            request.slot)
         return appointment_pb2.BookAppointmentResponse(appointment_id=appt_id, msg=msg)
     
     
