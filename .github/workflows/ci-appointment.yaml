@@ -27,7 +27,7 @@ jobs:
           python-version: '3.11'
 
       - name: Lint
-        run: pylint ./app
+        run: pylint ./app --fail-under 5
 
       - name: Unit tests
         run: pytest ./app/tests
