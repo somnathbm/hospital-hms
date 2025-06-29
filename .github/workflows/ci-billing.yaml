@@ -46,7 +46,8 @@ jobs:
         id: build
         run: |
           IMAGE_REPO_NAME=somnathbm/hospital-hms-billing-service
-          IMAGE_TAG=dev-sha-${{ github.sha }} >> "$GITHUB_OUTPUT"
+          IMAGE_TAG=dev-sha-${{ github.sha }}
+          echo "IMAGE_TAG=$IMAGE_TAG" >> "$GITHUB_OUTPUT"
           docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker push $IMAGE_REPO_NAME:$IMAGE_TAG
