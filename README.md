@@ -1,5 +1,6 @@
 [![CI for OPD Service](https://github.com/somnathbm/hospital-hms/actions/workflows/ci-opd.yaml/badge.svg)](https://github.com/somnathbm/hospital-hms/actions/workflows/ci-opd.yaml)
 [![CI for Billing service](https://github.com/somnathbm/hospital-hms/actions/workflows/ci-billing.yaml/badge.svg)](https://github.com/somnathbm/hospital-hms/actions/workflows/ci-billing.yaml)
+[![CI for Appointment service](https://github.com/somnathbm/hospital-hms/actions/workflows/ci-appointment.yaml/badge.svg)](https://github.com/somnathbm/hospital-hms/actions/workflows/ci-appointment.yaml)
 
 # 🏥 hospital-hms
 
