@@ -4,9 +4,6 @@
 
 # 🏥 hospital-hms
 
-## 🧭 Infrastructure repo
-[hospital-hms-infra](https://github.com/somnathbm/hospital-hms-infra.git)
-
 ---
 
 A **production-like, cloud-native Hospital Management System (HMS)** that simulates the digital operations of a modern hospital. Built using microservices architecture, GitOps with ArgoCD, Kubernetes (EKS), and backed by complete CI/CD, observability, and gRPC-based service communication.
@@ -29,27 +26,28 @@ A **production-like, cloud-native Hospital Management System (HMS)** that simula
 
 ---
 
-## 📁 Monorepo Structure
+## 📁 Services Monorepo Structure
 
 ```bash
 hospital-hms/
-├── proto/                       # gRPC .proto definitions
-├── microservices/              
-│   ├── opd-service/            # Go/Python service for OPD
-│   ├── ipd-service/
-│   ├── billing-service/
-│   └── insurance-service/
-├── infra/
-│   ├── eks/                    # EKS cluster IaC (Terraform / SAM)
-│   └── observability/         # Prometheus, Grafana, New Relic, etc.
-├── charts/
-│   └── hospital-hms/          # Helm umbrella chart
-├── argocd/
-│   ├── apps/                  # App of Apps manifests
-│   └── project.yaml
-└── .github/
-    └── workflows/             # GitHub Actions for CI/CD
+  .
+  ├── .github
+  │   └── workflows             # GitHub Actions for CI/CD
+  ├── docs                      # Architecture diagrams, images, documents
+  ├── microservices             # Microservices
+  │   ├── appointment-service
+  │   ├── billing-service
+  │   ├── ipd-service
+  │   ├── laboratory-service
+  │   └── opd-service
+  └── shared                    # Shared Protobuf contracts
+      └── proto            
 ```
+
+---
+
+## 🧭 Infrastructure Repo
+[hospital-hms-infra](https://github.com/somnathbm/hospital-hms-infra.git)
 
 ---
 
