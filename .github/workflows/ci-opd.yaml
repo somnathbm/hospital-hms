@@ -78,7 +78,7 @@ jobs:
           # Commit the changes
           git add .
           git commit -m "chore: update OPD image tag to ${{ env.IMAGE_TAG }}"
-          git push origin update-opd-${{ github.sha }}
+          git push -u origin update-opd-${{ github.sha }}
 
       - name: Create PR to infra repo
         uses: peter-evans/create-pull-request@v5
