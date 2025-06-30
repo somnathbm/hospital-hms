@@ -58,7 +58,13 @@ jobs:
       - name: Update image tag
         run: |
           cd kustomize/overlays/dev
+          echo "--cat before sed--"
+          cat opd-values.yaml
           sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" opd-values.yaml
+          echo "--cat after sed--"
+          cat opd-values.yaml
+          echo "--Git status --"
+          git status
 
           # set the user name
           git config user.name "github-actions[bot]"
