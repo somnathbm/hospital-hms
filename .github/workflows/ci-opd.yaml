@@ -59,6 +59,9 @@ jobs:
 
       - name: Update image tag
         run: |
+          # Set line endings correctly
+          git config --global core.autocrlf input
+
           # Always on main first
           git checkout main
           git pull
@@ -66,12 +69,15 @@ jobs:
           # Checkout new feature branch first
           git checkout -b update-opd-${{ github.sha }}
 
+          # Debug existing opd-values file
+          grep "tag:" kustomize/overlays/dev/opd-values.yaml
+
           # Modify the value file
           sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/opd-values.yaml
           
           # Show logs
           cat kustomize/overlays/dev/opd-values.yaml
-          git status
+          grep "tag:" kustomize/overlays/dev/opd-values.yaml
 
           # Set the user name
           git config user.name "github-actions[bot]"
@@ -82,12 +88,12 @@ jobs:
           git commit -m "chore: update OPD image tag to ${{ env.IMAGE_TAG }}"
           git push -u origin update-opd-${{ github.sha }}
 
-      - name: Create PR to infra repo
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GH_PAT }}
-          base: main
-          commit-message: "chore: update OPD image tag"
-          title: "chore: update OPD image tag to ${{ env.IMAGE_TAG }}"
-          body: "This PR updates the OPD service image tag so that ArgoCD can pickup the new version"
-          branch: update-opd-${{ github.sha }}
+      # - name: Create PR to infra repo
+      #   uses: peter-evans/create-pull-request@v5
+      #   with:
+      #     token: ${{ secrets.GH_PAT }}
+      #     base: main
+      #     commit-message: "chore: update OPD image tag"
+      #     title: "chore: update OPD image tag to ${{ env.IMAGE_TAG }}"
+      #     body: "This PR updates the OPD service image tag so that ArgoCD can pickup the new version"
+      #     branch: update-opd-${{ github.sha }}
