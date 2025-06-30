@@ -58,10 +58,10 @@ jobs:
       - name: Update image tag
         run: |
           echo "--cat before sed--\n"
-          cat opd-values.yaml
+          cat kustomize/overlays/dev/opd-values.yaml
           sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/opd-values.yaml
           echo "--cat after sed--\n"
-          cat opd-values.yaml
+          cat kustomize/overlays/dev/opd-values.yaml
           echo "--Git status --\n"
           git status
 
