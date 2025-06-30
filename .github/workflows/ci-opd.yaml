@@ -57,13 +57,12 @@ jobs:
 
       - name: Update image tag
         run: |
-          cd kustomize/overlays/dev
-          echo "--cat before sed--"
+          echo "--cat before sed--\n"
           cat opd-values.yaml
-          sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" opd-values.yaml
-          echo "--cat after sed--"
+          sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/opd-values.yaml
+          echo "--cat after sed--\n"
           cat opd-values.yaml
-          echo "--Git status --"
+          echo "--Git status --\n"
           git status
 
           # set the user name
@@ -72,7 +71,9 @@ jobs:
 
           # checkout new branch and commit to it
           git checkout -b update-opd-${{ github.sha }}
-          git add opd-values.yaml
+          git add kustomize/overlays/dev/opd-values.yaml
+          echo "--after git add --\n"
+          git status
           git commit -m "chore: update OPD image tag to ${{ env.IMAGE_TAG }}"
           git push origin update-opd-${{ github.sha }}
 
