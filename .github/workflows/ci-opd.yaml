@@ -54,6 +54,8 @@ jobs:
         with:
           repository: somnathbm/hospital-hms-infra
           token: ${{ secrets.GH_PAT }}
+          ref: main
+          fetch-depth: 0
 
       - name: Update image tag
         run: |
