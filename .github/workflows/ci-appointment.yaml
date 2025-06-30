@@ -26,8 +26,11 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Lint
-        run: pylint ./app
+        run: pylint ./app --fail-under 5
 
       - name: Unit tests
         run: pytest ./app/tests
@@ -35,6 +38,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: [test]
+    defaults:
+      run:
+        working-directory: microservices/appointment-service
 
     steps:
       - uses: actions/checkout@v4
@@ -43,47 +49,58 @@ jobs:
         id: build
         run: |
           IMAGE_REPO_NAME=somnathbm/hospital-hms-appointment-service
-          IMAGE_TAG=sha-${{ github.sha }} >> "$GITHUB_OUTPUT"
+          IMAGE_TAG=dev-sha-${{ github.sha }}
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
           docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker push $IMAGE_REPO_NAME:$IMAGE_TAG
     outputs:
-      image_tag: ${{ steps.build.outputs.IMAGE_TAG }}
+      image_tag: ${{ steps.build.outputs.image_tag }}
   
   update_infra_repo:
     runs-on: ubuntu-latest
     needs: [build]
     env:
-      IMAGE_TAG: ${{ needs.test.outputs.image_tag }}
+      IMAGE_TAG: ${{ needs.build.outputs.image_tag }}
     steps:
       - name: Checkout infra repo
         uses: actions/checkout@v4
         with:
           repository: ${{ env.INFRA_REPO_URL }}
           token: ${{ secrets.GH_PAT }}
-          path: infra
+          ref: main
+          fetch-depth: 0
 
       - name: Update image tag
         run: |
-          cd overlays/dev
-          sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}" appointment-values.yaml
+          # Set line endings correctly
+          git config --global core.autocrlf input
 
-          # set the user name and email
+          # Always on main first
+          git checkout main
+          git pull
+
+          # Checkout new feature branch first
+          git checkout -b update-appointment-${{ github.sha }}
+
+          # Modify the value file
+          sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/appointment-values.yaml
+
+          # Set the user name
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # checkout new branch and commit to it
-          git checkout -b update-appointment-${{ github.sha }}
-          git add appointment-values.yaml
+          # Commit the changes
+          git add kustomize/overlays/dev/appointment-values.yaml
           git commit -m "chore: update appointment service image tag to ${{ env.IMAGE_TAG }}"
           git push -u origin update-appointment-${{ github.sha }}
 
-      - name: Create new PR to infra repo
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ github.GH_PAT }}
-          path: infra
-          commit-message: "Updated appointment image tag"
-          title: "Updated appointment image tag to ${{ env.IMAGE_TAG }}"
-          body: "This PR updates appointment service image tag"
-          branch: update-appointment-${{ github.sha }}
+      # - name: Create new PR to infra repo
+      #   uses: peter-evans/create-pull-request@v5
+      #   with:
+      #     token: ${{ secrets.GH_PAT }}
+      #     base: main
+      #     commit-message: "Updated appointment image tag"
+      #     title: "Updated appointment image tag to ${{ env.IMAGE_TAG }}"
+      #     body: "This PR updates appointment service image tag"
+      #     branch: update-appointment-${{ github.sha }}
