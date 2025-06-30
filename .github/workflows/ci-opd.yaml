@@ -57,22 +57,28 @@ jobs:
 
       - name: Update image tag
         run: |
-          echo "--cat before sed--\n"
+          # Always on main first
+          git checkout main
+          git pull
+
+          # Checkout new feature branch first
+          git checkout -b update-opd-${{ github.sha }}
+
+          # Modify the value file
+          echo "--cat before sed--"
           cat kustomize/overlays/dev/opd-values.yaml
           sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/opd-values.yaml
-          echo "--cat after sed--\n"
+          echo "\n--cat after sed--"
           cat kustomize/overlays/dev/opd-values.yaml
-          echo "--Git status --\n"
+          echo "\n--Git status --"
           git status
 
           # set the user name
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # checkout new branch and commit to it
-          git checkout -b update-opd-${{ github.sha }}
           git add kustomize/overlays/dev/opd-values.yaml
-          echo "--after git add --\n"
+          echo "\n--after git add --"
           git status
           git commit -m "chore: update OPD image tag to ${{ env.IMAGE_TAG }}"
           git push origin update-opd-${{ github.sha }}
