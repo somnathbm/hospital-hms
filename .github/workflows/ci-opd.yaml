@@ -56,7 +56,7 @@ jobs:
 
       - name: Update image tag
         run: |
-          cd ./overlays/dev
+          cd ./kustomize/overlays/dev
           sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" opd-values.yaml
 
           # set the user name
