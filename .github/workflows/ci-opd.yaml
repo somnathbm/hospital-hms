@@ -75,7 +75,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          $ Commit the changes
+          # Commit the changes
           git add .
           git commit -m "chore: update OPD image tag to ${{ env.IMAGE_TAG }}"
           git push origin update-opd-${{ github.sha }}
