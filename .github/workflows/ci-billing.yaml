@@ -50,7 +50,7 @@ jobs:
         run: |
           IMAGE_REPO_NAME=somnathbm/hospital-hms-billing-service
           IMAGE_TAG=dev-sha-${{ github.sha }}
-          echo "image_tag=$IMAGE_TAG" >> "$GITHUB_OUTPUT"
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
           docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker push $IMAGE_REPO_NAME:$IMAGE_TAG
@@ -68,28 +68,39 @@ jobs:
         with:
           repository: ${{ env.INFRA_REPO_URL }}
           token: ${{ secrets.GH_PAT }}
+          ref: main
+          fetch-depth: 0
 
       - name: Update image tag
         run: |
-          cd overlays/dev
-          sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" billing-values.yaml
+          # Set line endings correctly
+          git config --global core.autocrlf input
 
-          # set the user name and email
+          # Always on main first
+          git checkout main
+          git pull
+
+          # Checkout new feature branch first
+          git checkout -b update-billing-${{ github.sha }}
+
+          # Modify the value file
+          sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/billing-values.yaml
+
+          # Set the user name
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # checkout new branch and commit to it
-          git checkout -b update-billing-${{ github.sha }}
-          git add billing-values.yaml
+          # Commit the changes
+          git add kustomize/overlays/dev/billing-values.yaml
           git commit -m "chore: update billing service image tag to ${{ env.IMAGE_TAG }}"
           git push -u origin update-billing-${{ github.sha }}
 
-      - name: Create new PR to infra repo
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GH_PAT }}
-          base: main
-          commit-message: "Updated billing svc image tag"
-          title: "Updated billing image tag to ${{ env.IMAGE_TAG }}"
-          body: "This PR updates billing service image tag"
-          branch: update-billing-${{ github.sha }}
+      # - name: Create new PR to infra repo
+      #   uses: peter-evans/create-pull-request@v5
+      #   with:
+      #     token: ${{ secrets.GH_PAT }}
+      #     base: main
+      #     commit-message: "Updated billing svc image tag"
+      #     title: "Updated billing image tag to ${{ env.IMAGE_TAG }}"
+      #     body: "This PR updates billing service image tag"
+      #     branch: update-billing-${{ github.sha }}
