@@ -1,6 +1,7 @@
 import pytest
 from app.service import AppointmentServiceCore
 
+
 @pytest.fixture
 def apppointment_service():
     return AppointmentServiceCore()
