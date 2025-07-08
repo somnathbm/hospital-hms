@@ -5,6 +5,6 @@ This is the Appointment service. Like a patient books appointment online through
 ---
 
 ## ⛩️ Architecture diagram
-![appointment-service-diagram](../../docs/apt-service-diagram.svg)
+![appointment-service-diagram](../../docs/diagram/apt-service-diagram.svg)
 
 ---

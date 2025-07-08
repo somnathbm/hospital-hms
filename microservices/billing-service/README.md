@@ -6,4 +6,4 @@ Like happens in a hospital, different departents such as insurance, labs, OPD or
 Here other services calls this services via gRPC and REST.
 
 ## ⛩️ Architecture diagram
-![billing-service-diagram](../../docs/billing-service-diagram.svg)
+![billing-service-diagram](../../docs/diagram/billing-service-diagram.svg)

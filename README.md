@@ -51,9 +51,12 @@ hospital-hms/
 
 ---
 
-## 📦 Microservices Overview
+![Microservice Overview](docs/diagram/image.png)
 
-![Microservice Overview](docs/image.png)
+---
+
+## ⛩️ Architecture diagram
+![hospital-hms-cluster-diagram](docs/diagram/hospital-hms-cluster-diagram.svg)
 
 ---
 

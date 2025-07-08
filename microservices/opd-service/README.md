@@ -5,7 +5,7 @@ This is the OPD (Out-Patient Department) service. This is analogous to how a typ
 ---
 
 ## ⛩️ Architecture diagram
-![opd-service-diagram](../../docs/opd-service-diagram.svg)
+![opd-service-diagram](../../docs/diagram/opd-service-diagram.svg)
 
 ---
 
