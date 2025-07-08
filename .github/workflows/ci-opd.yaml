@@ -70,14 +70,16 @@ jobs:
           git checkout -b update-opd-${{ github.sha }}
 
           # Modify the value file
-          sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/opd-values.yaml
+          # sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/opd/opd-values.yaml
+          sed -i "s/image: .*/image: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/opd/opd-patch.yaml
 
           # Set the user name
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           # Commit the changes
-          git add kustomize/overlays/dev/opd-values.yaml
+          # git add kustomize/overlays/dev/opd/opd-values.yaml
+          git add kustomize/overlays/dev/opd/opd-patch.yaml
           git commit -m "chore: update OPD image tag to ${{ env.IMAGE_TAG }}"
           git push -u origin update-opd-${{ github.sha }}
 

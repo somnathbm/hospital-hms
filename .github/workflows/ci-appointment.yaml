@@ -71,25 +71,36 @@ jobs:
 
       - name: Update image tag
         run: |
-          cd overlays/dev
-          sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" appointment-values.yaml
+          # Set line endings correctly
+          git config --global core.autocrlf input
 
-          # set the user name and email
+          # Always on main first
+          git checkout main
+          git pull
+
+          # Checkout new feature branch first
+          git checkout -b update-appointment-${{ github.sha }}
+
+          # Modify the value file
+          # sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/appointment/appointment-values.yaml
+          sed -i "s/image: .*/image: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/appointment/appointment-patch.yaml
+
+          # Set the user name and email
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # checkout new branch and commit to it
-          git checkout -b update-appointment-${{ github.sha }}
-          git add appointment-values.yaml
+          # Commit the changes
+          # git add kustomize/overlays/dev/appointment/appointment-values.yaml
+          git add kustomize/overlays/dev/appointment/appointment-patch.yaml
           git commit -m "chore: update appointment service image tag to ${{ env.IMAGE_TAG }}"
           git push -u origin update-appointment-${{ github.sha }}
 
-      - name: Create new PR to infra repo
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GH_PAT }}
-          base: main
-          commit-message: "Updated appointment image tag"
-          title: "Updated appointment image tag to ${{ env.IMAGE_TAG }}"
-          body: "This PR updates appointment service image tag"
-          branch: update-appointment-${{ github.sha }}
+      # - name: Create new PR to infra repo
+      #   uses: peter-evans/create-pull-request@v5
+      #   with:
+      #     token: ${{ secrets.GH_PAT }}
+      #     base: main
+      #     commit-message: "Updated appointment image tag"
+      #     title: "Updated appointment image tag to ${{ env.IMAGE_TAG }}"
+      #     body: "This PR updates appointment service image tag"
+      #     branch: update-appointment-${{ github.sha }}
