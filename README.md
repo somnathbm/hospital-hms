@@ -55,7 +55,7 @@ hospital-hms/
 
 ---
 
-## ⛩️ Architecture diagram
+## ⛩️ Cluster Architecture Diagram
 ![hospital-hms-cluster-diagram](docs/diagram/hospital-hms-cluster-diagram.svg)
 
 ---
@@ -71,6 +71,11 @@ hospital-hms/
   - **CD**: GitOps with ArgoCD
     - ArgoCD monitors repo for manifest changes
     - Canary/Blue-Green deployments via Argo Rollouts
+
+---
+
+## ⛩️ CI Workflow diagram
+![hospital-hms-CI-diagram](docs/diagram/hospital-hms-ci-cd-diagram.svg)
 
 ---
 
