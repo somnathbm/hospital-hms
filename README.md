@@ -79,6 +79,11 @@ hospital-hms/
 
 ---
 
+## ⛩️ CD Workflow diagram
+![hospital-hms-CD-diagram](docs/diagram/hospital-hms-cd-diagram.svg)
+
+---
+
 ## 📊 Observability Stack
 
   - **Prometheus + Grafana**: Real-time metrics
