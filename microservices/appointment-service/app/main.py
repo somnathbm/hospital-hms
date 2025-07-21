@@ -1,5 +1,6 @@
 import threading
 import uvicorn
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from app.service import AppointmentServiceCore
 from app.rest import create_rest_api
@@ -14,6 +15,10 @@ def main():
 
     # start REST API with FastAPI
     app = create_rest_api(core)
+
+    # Instrument the app server
+    Instrumentator().instrument(app).expose(app)
+    
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
 

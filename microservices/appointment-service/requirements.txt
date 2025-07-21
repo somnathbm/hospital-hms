@@ -5,3 +5,4 @@ grpcio-tools
 pydantic
 pytest
 pylint
+prometheus-fastapi-instrumentator
