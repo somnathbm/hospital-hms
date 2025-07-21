@@ -33,21 +33,20 @@ jobs:
       - name: Build & Push Docker image
         id: build
         run: |
-          IMAGE_REPO_NAME=somnathbm/hospital-hms-opd-service
-          IMAGE_TAG=dev-sha-${{ github.sha }}
-          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
-          docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+          IMAGE_PATH=somnathbm/hospital-hms-opd-service:dev-sha-${{ github.sha }}
+          echo "image_path=$IMAGE_PATH" >> $GITHUB_OUTPUT
+          docker build -t $IMAGE_PATH .
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker push $IMAGE_REPO_NAME:$IMAGE_TAG
+          docker push $IMAGE_PATH
     outputs:
-      image_tag: ${{ steps.build.outputs.image_tag }}
+      image_path: ${{ steps.build.outputs.image_path }}
 
   update_infra_repo:
     runs-on: ubuntu-latest
     needs: [test_build]
 
     env:
-      IMAGE_TAG: ${{ needs.test_build.outputs.image_tag }}
+      IMAGE_TAG: ${{ needs.test_build.outputs.image_path }}
     steps:
       - name: Checkout infra repo
         uses: actions/checkout@v4
@@ -70,8 +69,8 @@ jobs:
           git checkout -b update-opd-${{ github.sha }}
 
           # Modify the value file
-          # sed -i "s/tag: .*/tag: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/opd/opd-values.yaml
-          sed -i "s/image: .*/image: ${{ env.IMAGE_TAG }}/" kustomize/overlays/dev/opd/opd-patch.yaml
+          # sed -i "s/tag: .*/tag: ${{ env.IMAGE_PATH }}/" kustomize/overlays/dev/opd/opd-values.yaml
+          sed -i "s/image: .*/image: ${{ env.IMAGE_PATH }}/" kustomize/overlays/dev/opd/opd-patch.yaml
 
           # Set the user name
           git config user.name "github-actions[bot]"
@@ -80,7 +79,7 @@ jobs:
           # Commit the changes
           # git add kustomize/overlays/dev/opd/opd-values.yaml
           git add kustomize/overlays/dev/opd/opd-patch.yaml
-          git commit -m "chore: update OPD image tag to ${{ env.IMAGE_TAG }}"
+          git commit -m "chore: update OPD image tag to ${{ env.IMAGE_PATH }}"
           git push -u origin update-opd-${{ github.sha }}
 
       # - name: Create PR to infra repo
