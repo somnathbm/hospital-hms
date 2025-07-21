@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net"
 	"net/http"
@@ -9,6 +10,7 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	"github.com/go-chi/chi"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	pb "github.com/somnathbm/hospital-hms/microservices/opd-service/gen/opdpb"
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/client"
 	"github.com/somnathbm/hospital-hms/microservices/opd-service/internal/rest"
@@ -47,6 +49,15 @@ func main() {
 	// REST setup
 	restHandler := rest.NewHandler(opdSvc)
 	r := chi.NewRouter()
+
+	r.Get("/healthy", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		resp := map[string]interface{}{
+			"status": "ok",
+		}
+		json.NewEncoder(w).Encode(resp)
+	})
+	r.Handle("/metrics", promhttp.Handler())
 	r.Mount("/opd", restHandler.Routes())
 
 	log.Printf("✅ OPD REST server listening on %s", restPort)
